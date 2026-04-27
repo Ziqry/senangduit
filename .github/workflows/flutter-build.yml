@@ -1,0 +1,89 @@
+name: Flutter Build & Release
+
+# When this workflow runs
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Allow manual trigger from Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Get the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # Step 2: Set up Java (needed for Android builds)
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      
+      # Step 3: Install Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.7'
+          channel: 'stable'
+          cache: true
+      
+      # Step 4: Show Flutter version (for debugging)
+      - name: Flutter version
+        run: flutter --version
+      
+      # Step 5: Install dependencies
+      - name: Install dependencies
+        run: flutter pub get
+      
+      # Step 6: Check code formatting
+      - name: Verify code formatting
+        run: dart format --output=none --set-exit-if-changed .
+        continue-on-error: true
+      
+      # Step 7: Static analysis (find code issues)
+      - name: Analyze code
+        run: flutter analyze
+        continue-on-error: true
+      
+      # Step 8: Run tests
+      - name: Run tests
+        run: flutter test
+        continue-on-error: true
+      
+      # Step 9: Build the APK!
+      - name: Build APK (Release)
+        run: flutter build apk --release
+      
+      # Step 10: Upload the APK so we can download it
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: senangduit-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
+      
+      # Step 11: Create a release on every main push
+      - name: Create Release
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: SenangDuit Build #${{ github.run_number }}
+          body: |
+            🚀 Automated build from commit ${{ github.sha }}
+            
+            **Download the APK below to install on your Android device!**
+            
+            Built from: `${{ github.event.head_commit.message }}`
+          files: build/app/outputs/flutter-apk/app-release.apk
+          draft: false
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
