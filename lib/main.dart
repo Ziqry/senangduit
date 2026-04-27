@@ -1,26 +1,89 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'theme/app_theme.dart';
+import 'services/theme_service.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/add_expense_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/analytics_screen.dart';
 import 'screens/loans_screen.dart';
+import 'screens/onboarding_screen.dart';
 
-void main() {
-  runApp(const SenangDuitApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final themeService = ThemeService();
+  await themeService.loadTheme();
+  runApp(SenangDuitApp(themeService: themeService));
 }
 
 class SenangDuitApp extends StatelessWidget {
-  const SenangDuitApp({super.key});
+  final ThemeService themeService;
+
+  const SenangDuitApp({super.key, required this.themeService});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SenangDuit',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      home: const MainScreen(),
+    return ChangeNotifierProvider.value(
+      value: themeService,
+      child: Consumer<ThemeService>(
+        builder: (context, theme, _) {
+          return MaterialApp(
+            title: 'SenangDuit',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: theme.flutterThemeMode,
+            home: const AppRoot(),
+          );
+        },
+      ),
     );
+  }
+}
+
+class AppRoot extends StatefulWidget {
+  const AppRoot({super.key});
+
+  @override
+  State<AppRoot> createState() => _AppRootState();
+}
+
+class _AppRootState extends State<AppRoot> {
+  bool? _showOnboarding;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkOnboarding();
+  }
+
+  Future<void> _checkOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    final completed = prefs.getBool('onboarding_complete') ?? false;
+    setState(() => _showOnboarding = !completed);
+  }
+
+  void _onOnboardingComplete() {
+    setState(() => _showOnboarding = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_showOnboarding == null) {
+      return const Scaffold(
+        backgroundColor: AppTheme.primaryGreen,
+        body: Center(
+          child: CircularProgressIndicator(color: Colors.white),
+        ),
+      );
+    }
+
+    if (_showOnboarding!) {
+      return OnboardingScreen(onComplete: _onOnboardingComplete);
+    }
+
+    return const MainScreen();
   }
 }
 
@@ -34,9 +97,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  // List of screens for bottom navigation
-  // For now only Dashboard is built — others coming soon!
-final List<Widget> _screens = [
+  final List<Widget> _screens = [
     const DashboardScreen(),
     const AnalyticsScreen(),
     const LoansScreen(),
@@ -92,47 +153,6 @@ final List<Widget> _screens = [
             label: 'Settings',
           ),
         ],
-      ),
-    );
-  }
-}
-
-// Temporary placeholder for screens we haven't built yet
-class _ComingSoonScreen extends StatelessWidget {
-  final String title;
-
-  const _ComingSoonScreen({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.construction,
-              size: 80,
-              color: Colors.grey,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '$title Coming Soon',
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'We\'re building this next!',
-              style: TextStyle(color: Colors.grey),
-            ),
-          ],
-        ),
       ),
     );
   }
