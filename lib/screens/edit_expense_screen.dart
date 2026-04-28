@@ -150,7 +150,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppTheme.surfaceGrey,
+                  color: AppTheme.cardSurface(context),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -182,7 +182,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               decoration: BoxDecoration(
-                color: AppTheme.surfaceGrey,
+                color: AppTheme.cardSurface(context),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: SwitchListTile(
@@ -315,7 +315,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
           borderRadius: BorderRadius.circular(12),
           child: Container(
             decoration: BoxDecoration(
-              color: isSelected ? category.color.withValues(alpha: 0.2) : AppTheme.surfaceGrey,
+              color: isSelected ? category.color.withValues(alpha: 0.2) : AppTheme.cardSurface(context),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: isSelected ? category.color : Colors.transparent,
@@ -337,7 +337,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                      color: isSelected ? AppTheme.textDark : AppTheme.textGrey,
+                      color: AppTheme.textPrimary(context),
                     ),
                   ),
                 ),

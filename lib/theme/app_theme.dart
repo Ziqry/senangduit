@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // ===== BRAND COLORS (same for both themes) =====
+  // ===== BRAND COLORS =====
   static const Color primaryGreen = Color(0xFF1B5E20);
   static const Color lightGreen = Color(0xFF4CAF50);
   static const Color accentGold = Color(0xFFFFD700);
   static const Color darkGold = Color(0xFFB8860B);
 
-  // ===== LIGHT MODE COLORS =====
+  // ===== LIGHT MODE =====
   static const Color background = Color(0xFFF5F7FA);
   static const Color cardWhite = Color(0xFFFFFFFF);
   static const Color surfaceGrey = Color(0xFFEEEEEE);
@@ -16,7 +16,7 @@ class AppTheme {
   static const Color textGrey = Color(0xFF757575);
   static const Color textLight = Color(0xFFBDBDBD);
 
-  // ===== DARK MODE COLORS =====
+  // ===== DARK MODE =====
   static const Color darkBackground = Color(0xFF121212);
   static const Color darkCard = Color(0xFF1E1E1E);
   static const Color darkSurface = Color(0xFF2C2C2C);
@@ -24,13 +24,13 @@ class AppTheme {
   static const Color darkTextSecondary = Color(0xFFB0B0B0);
   static const Color darkTextTertiary = Color(0xFF757575);
 
-  // ===== STATUS COLORS (same for both) =====
+  // ===== STATUS =====
   static const Color success = Color(0xFF4CAF50);
   static const Color warning = Color(0xFFFF9800);
   static const Color danger = Color(0xFFE53935);
   static const Color info = Color(0xFF2196F3);
 
-  // ===== CATEGORY COLORS (same for both) =====
+  // ===== CATEGORIES =====
   static const Color foodColor = Color(0xFFFF6B6B);
   static const Color transportColor = Color(0xFF4ECDC4);
   static const Color shoppingColor = Color(0xFFFFE66D);
@@ -39,6 +39,25 @@ class AppTheme {
   static const Color healthColor = Color(0xFFFF8B94);
   static const Color educationColor = Color(0xFF6C5CE7);
   static const Color housingColor = Color(0xFFA8E6CF);
+
+  // ===== THEME-AWARE HELPERS =====
+  static Color cardSurface(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.dark
+        ? darkSurface
+        : surfaceGrey;
+  }
+
+  static Color textPrimary(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.dark
+        ? darkTextPrimary
+        : textDark;
+  }
+
+  static Color textSecondary(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.dark
+        ? darkTextSecondary
+        : textGrey;
+  }
 
   // ===== LIGHT THEME =====
   static ThemeData get lightTheme {

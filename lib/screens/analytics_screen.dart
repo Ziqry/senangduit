@@ -250,7 +250,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppTheme.surfaceGrey,
+                color: AppTheme.cardSurface(context),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -375,7 +375,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AppTheme.surfaceGrey,
+                      color: AppTheme.cardSurface(context),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
@@ -509,7 +509,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                     drawVerticalLine: false,
                     horizontalInterval: maxAmount > 0 ? maxAmount / 4 : 1,
                     getDrawingHorizontalLine: (value) => FlLine(
-                      color: AppTheme.surfaceGrey,
+                      color: AppTheme.cardSurface(context),
                       strokeWidth: 1,
                     ),
                   ),

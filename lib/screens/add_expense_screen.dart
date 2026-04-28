@@ -158,7 +158,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppTheme.surfaceGrey,
+                  color: AppTheme.cardSurface(context),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -201,7 +201,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               decoration: BoxDecoration(
-                color: AppTheme.surfaceGrey,
+                color: AppTheme.cardSurface(context),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: SwitchListTile(
@@ -383,7 +383,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             decoration: BoxDecoration(
               color: isSelected 
                   ? category.color.withValues(alpha: 0.2)
-                  : AppTheme.surfaceGrey,
+                  : AppTheme.cardSurface(context),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: isSelected ? category.color : Colors.transparent,

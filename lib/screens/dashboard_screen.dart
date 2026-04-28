@@ -175,10 +175,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const SizedBox(height: 12),
             Text(
               Formatters.currency(_monthlyTotal),
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: AppTheme.textDark,
+                color: AppTheme.textPrimary(context),
               ),
             ),
             Text(
@@ -194,7 +194,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: LinearProgressIndicator(
                 value: budgetUsed,
                 minHeight: 12,
-                backgroundColor: AppTheme.surfaceGrey,
+                backgroundColor: AppTheme.cardSurface(context),
                 valueColor: AlwaysStoppedAnimation(progressColor),
               ),
             ),
@@ -289,10 +289,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const SizedBox(height: 4),
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: AppTheme.textDark,
+                color: AppTheme.textPrimary(context),
               ),
             ),
           ],
@@ -391,7 +391,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             child: LinearProgressIndicator(
                               value: percentage,
                               minHeight: 6,
-                              backgroundColor: AppTheme.surfaceGrey,
+                              backgroundColor: AppTheme.cardSurface(context),
                               valueColor: AlwaysStoppedAnimation(category.color),
                             ),
                           ),
@@ -495,10 +495,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     Text(
                       Formatters.currency(expense.amount),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
-                        color: AppTheme.textDark,
+                        color: AppTheme.textPrimary(context),
                       ),
                     ),
                   ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../theme/app_theme.dart';
 import '../utils/formatters.dart';
@@ -27,16 +26,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Future<void> _completeOnboarding() async {
-    // Save budget if user entered one
     final budget = CurrencyParser.parse(_budgetController.text);
     if (budget != null && budget > 0) {
       await DatabaseService().setBudget(budget);
     }
-
-    // Mark onboarding as complete
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('onboarding_complete', true);
-
     if (!mounted) return;
     widget.onComplete();
   }
@@ -60,16 +55,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              AppTheme.primaryGreen,
-              AppTheme.lightGreen,
-            ],
+            colors: [AppTheme.primaryGreen, AppTheme.lightGreen],
           ),
         ),
         child: SafeArea(
           child: Column(
             children: [
-              // Skip button at top
               Align(
                 alignment: Alignment.topRight,
                 child: Padding(
@@ -87,7 +78,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
               ),
-              // Page content
               Expanded(
                 child: PageView(
                   controller: _pageController,
@@ -99,7 +89,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ],
                 ),
               ),
-              // Page indicators
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: Row(
@@ -120,7 +109,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   }),
                 ),
               ),
-              // Bottom button
               Padding(
                 padding: const EdgeInsets.all(24),
                 child: SizedBox(
@@ -170,7 +158,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Logo container
           Container(
             width: 160,
             height: 160,
@@ -194,10 +181,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           const SizedBox(height: 40),
           const Text(
             'Welcome to',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 18,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 18),
           ),
           const SizedBox(height: 8),
           const Text(
@@ -231,11 +215,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Text(
               'Smart personal finance powered by Machine Learning. Track expenses, predict savings, and manage loans — all in one app.',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                height: 1.5,
-              ),
+              style: TextStyle(color: Colors.white, fontSize: 16, height: 1.5),
             ),
           ),
         ],
@@ -251,10 +231,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           const Text(
             'Powered by',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 18,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 18),
           ),
           const SizedBox(height: 8),
           const Text(
@@ -368,10 +345,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           const SizedBox(height: 32),
           const Text(
             'Set Your',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 18,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 18),
           ),
           const SizedBox(height: 8),
           const Text(
@@ -386,10 +360,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           const Text(
             'How much do you want to spend each month?',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 14),
           ),
           const SizedBox(height: 32),
           Container(
@@ -411,7 +382,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
-                    color: AppTheme.textGrey,
+                    color: Color(0xFF757575),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -423,14 +394,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: AppTheme.textDark,
+                      color: Color(0xFF1A1A1A),
                     ),
+                    cursorColor: AppTheme.primaryGreen,
                     decoration: const InputDecoration(
                       hintText: '3,000',
                       hintStyle: TextStyle(
-                        color: AppTheme.textLight,
+                        color: Color(0xFFBDBDBD),
                         fontWeight: FontWeight.bold,
                       ),
+                      filled: false,
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
@@ -476,10 +449,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           const SizedBox(height: 16),
           const Text(
             'You can change this anytime in Settings',
-            style: TextStyle(
-              color: Colors.white60,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: Colors.white60, fontSize: 12),
           ),
         ],
       ),

@@ -218,7 +218,7 @@ class _LoansScreenState extends State<LoansScreen> {
                     decoration: BoxDecoration(
                       color: isSelected
                           ? type.color.withValues(alpha: 0.2)
-                          : AppTheme.surfaceGrey,
+                          : AppTheme.cardSurface(context),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
                         color: isSelected ? type.color : Colors.transparent,
@@ -237,7 +237,7 @@ class _LoansScreenState extends State<LoansScreen> {
                             fontWeight: isSelected
                                 ? FontWeight.w600
                                 : FontWeight.w500,
-                            color: AppTheme.textDark,
+                            color: AppTheme.textPrimary(context),
                           ),
                         ),
                       ],
@@ -375,7 +375,7 @@ class _LoansScreenState extends State<LoansScreen> {
             // Toggle between percentage and amount mode
             Container(
               decoration: BoxDecoration(
-                color: AppTheme.surfaceGrey,
+                color: AppTheme.cardSurface(context),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
@@ -396,7 +396,7 @@ class _LoansScreenState extends State<LoansScreen> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppTheme.surfaceGrey,
+              color: AppTheme.cardSurface(context),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -439,7 +439,7 @@ class _LoansScreenState extends State<LoansScreen> {
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     activeTrackColor: AppTheme.primaryGreen,
-                    inactiveTrackColor: AppTheme.surfaceGrey,
+                    inactiveTrackColor: AppTheme.cardSurface(context),
                     thumbColor: AppTheme.primaryGreen,
                     overlayColor: AppTheme.primaryGreen.withValues(alpha: 0.2),
                     trackHeight: 4,
@@ -858,7 +858,7 @@ class _LoansScreenState extends State<LoansScreen> {
                     drawVerticalLine: false,
                     horizontalInterval: calc.principal / 4,
                     getDrawingHorizontalLine: (value) => FlLine(
-                      color: AppTheme.surfaceGrey,
+                      color: AppTheme.cardSurface(context),
                       strokeWidth: 1,
                     ),
                   ),
